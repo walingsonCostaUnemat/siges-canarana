@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGES-BM</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-logo">
+      <img src="img/logo-cbm.png" alt="Logo CBM-MT" class="logo-img">
+      <div>
+        <div class="logo-title">SIGES-BM</div>
+        <div class="logo-sub" id="header-subtitulo"></div>
+        <div class="logo-sub" style="opacity:0.65;font-size:11px">Controle de Jornadas Extraordinarias</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="App.exportarExcel()">⬇ Exportar Excel</button>
+      <label class="btn btn-outline" style="cursor:pointer">
+        ⬆ Importar Excel
+        <input type="file" accept=".xlsx,.xls" style="display:none" onchange="App.importarExcel(event)">
+      </label>
+    </div>
+  </header>
+
+  <nav>
+    <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+    <button class="nav-btn" data-section="jornadas">Jornadas</button>
+    <button class="nav-btn" data-section="calendario">Calendario</button>
+    <button class="nav-btn" data-section="relatorio">Relatorio</button>
+    <button class="nav-btn" data-section="militares">Militares</button>
+    <button class="nav-btn" data-section="recursos">Recursos</button>
+    <button class="nav-btn" data-section="valores">Tabela de Valores</button>
+  </nav>
+
+  <main>
+    <div id="section-dashboard" class="section active"></div>
+    <div id="section-jornadas" class="section"></div>
+    <div id="section-calendario" class="section"></div>
+    <div id="section-relatorio" class="section"></div>
+    <div id="section-militares" class="section"></div>
+    <div id="section-recursos" class="section"></div>
+    <div id="section-valores" class="section"></div>
+  </main>
+
+  <footer class="app-footer no-print">
+    <span id="footer-quartel"></span>
+    <span class="footer-autoria">
+      Desenvolvido por <strong>SD BM Walingson</strong>
+    </span>
+  </footer>
+
+  <div id="modal-overlay" class="modal-overlay" onclick="App.fecharModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="modal-title"></h3>
+        <button onclick="App.fecharModal()">✕</button>
+      </div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="rodape-impressao" class="rodape-impressao">
+    <span id="rodape-quartel"></span> &nbsp;·&nbsp; <span id="rodape-data"></span>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/jornadas.js"></script>
+  <script src="js/calendario.js"></script>
+  <script src="js/relatorio.js"></script>
+  <script src="js/militares.js"></script>
+  <script src="js/recursos.js"></script>
+  <script src="js/valores.js"></script>
+  <script src="js/tutorial.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

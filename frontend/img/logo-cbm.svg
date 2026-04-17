@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Fundo circular dourado -->
+  <circle cx="60" cy="60" r="58" fill="#8b0000" stroke="#c8a94a" stroke-width="3"/>
+
+  <!-- Anel interno dourado -->
+  <circle cx="60" cy="60" r="50" fill="none" stroke="#c8a94a" stroke-width="1.5"/>
+
+  <!-- Chamas estilizadas (símbolo bombeiro) -->
+  <g fill="#fbbf24">
+    <!-- Chama central -->
+    <path d="M60 28 C60 28 50 38 50 50 C50 58 54 62 58 62 C55 56 57 50 60 46 C63 50 65 56 62 62 C66 62 70 58 70 50 C70 38 60 28 60 28Z"/>
+    <!-- Chama esquerda menor -->
+    <path d="M45 42 C45 42 38 48 38 56 C38 62 42 65 46 64 C43 60 44 55 46 52 C48 55 49 60 47 64 C51 63 54 59 54 53 C54 46 45 42 45 42Z" opacity="0.7"/>
+    <!-- Chama direita menor -->
+    <path d="M75 42 C75 42 82 48 82 56 C82 62 78 65 74 64 C77 60 76 55 74 52 C72 55 71 60 73 64 C69 63 66 59 66 53 C66 46 75 42 75 42Z" opacity="0.7"/>
+  </g>
+
+  <!-- Escudo central branco -->
+  <path d="M60 55 L47 65 L47 80 Q47 88 60 93 Q73 88 73 80 L73 65 Z" fill="white" stroke="#c8a94a" stroke-width="1"/>
+
+  <!-- Cruz vermelha no escudo -->
+  <rect x="56" y="62" width="8" height="24" rx="1" fill="#8b0000"/>
+  <rect x="50" y="70" width="20" height="8" rx="1" fill="#8b0000"/>
+
+  <!-- Texto CBM-MT -->
+  <text x="60" y="108" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#c8a94a" letter-spacing="1">CBM · MT</text>
+
+  <!-- Texto superior -->
+  <path id="arco-sup" d="M 15,60 A 45,45 0 0,1 105,60" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="7.5" font-weight="600" fill="#fbbf24" letter-spacing="0.5">
+    <textPath href="#arco-sup" startOffset="8%">CORPO DE BOMBEIROS MILITAR</textPath>
+  </text>
+
+  <!-- Texto inferior -->
+  <path id="arco-inf" d="M 18,62 A 42,42 0 0,0 102,62" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="7" fill="#fbbf24" letter-spacing="0.5">
+    <textPath href="#arco-inf" startOffset="18%">ESTADO DE MATO GROSSO</textPath>
+  </text>
+</svg>

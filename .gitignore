@@ -1,0 +1,29 @@
+# Dados persistentes (volume Docker)
+data/
+dados.json
+
+# Logs
+*.log
+
+# Temporarios
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Ambiente (local)
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
