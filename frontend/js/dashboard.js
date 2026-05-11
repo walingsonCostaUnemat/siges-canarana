@@ -6,9 +6,10 @@ const Dashboard = (() => {
     const hoje = new Date();
     const ano = hoje.getFullYear();
     const mes = hoje.getMonth() + 1;
+    const mesAtual = `${ano}-${String(mes).padStart(2,'0')}`;
     const jornadas = DB.getJornadasPorMes(ano, mes);
     const militares = DB.getMilitares(true);
-    const resumo = DB.getResumoOrcamentario();
+    const resumo = DB.getResumoOrcamentario(mesAtual);
     const historico = DB.getHistoricoMensal(6);
 
     const totalHoras    = jornadas.reduce((s,j) => s+(j.horas||0), 0);

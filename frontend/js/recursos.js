@@ -3,15 +3,41 @@
  */
 const Recursos = (() => {
   let filtroTipo = '';
+  let mesSelecionado = ((d) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`)(new Date());
+
+  function _formatarMes(mes) {
+    const [a, m] = mes.split('-').map(Number);
+    return new Date(a, m-1, 1).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+  }
+
+  function _mesesDisponiveis() {
+    const meses = new Set([mesSelecionado]);
+    DB.getRecursos().forEach(r => meses.add(r.mes));
+    DB.getJornadas().forEach(j => {
+      const d = new Date(j.data + 'T00:00:00');
+      meses.add(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`);
+    });
+    return [...meses].sort().reverse();
+  }
 
   function render() {
     const lista = DB.getRecursos().sort((a,b) => b.mes.localeCompare(a.mes));
-    const resumo = DB.getResumoOrcamentario();
+    const resumo = DB.getResumoOrcamentario(mesSelecionado);
+    const meses = _mesesDisponiveis();
 
     document.getElementById('section-recursos').innerHTML = `
       <div class="page-header">
         <h2>Recursos Orçamentários</h2>
-        <button class="btn btn-primary" onclick="Recursos.abrirFormulario()">+ Novo Aporte</button>
+        <div style="display:flex;gap:10px;align-items:center">
+          <select onchange="Recursos.setMes(this.value)" style="padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;text-transform:capitalize">
+            ${meses.map(m => `<option value="${m}" ${m===mesSelecionado?'selected':''}>${_formatarMes(m)}</option>`).join('')}
+          </select>
+          <button class="btn btn-primary" onclick="Recursos.abrirFormulario()">+ Novo Aporte</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;font-size:13px;color:var(--text-muted)">
+        Saldo calculado apenas para o mês selecionado — não acumula entre meses.
       </div>
 
       <!-- Cards de saldo -->
@@ -24,7 +50,7 @@ const Recursos = (() => {
           <div class="card">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
               <div>
-                <div style="font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:1px">Verba ${tipo}</div>
+                <div style="font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:1px">Verba ${tipo} <span style="text-transform:capitalize;font-weight:400;color:var(--text-muted)">— ${_formatarMes(mesSelecionado)}</span></div>
                 <div style="font-size:28px;font-weight:700;color:${alerta};margin-top:4px">
                   R$ ${r.saldo.toLocaleString('pt-BR',{minimumFractionDigits:2})}
                 </div>
@@ -99,7 +125,7 @@ const Recursos = (() => {
 
   function abrirFormulario(id) {
     const r = id ? DB.getRecursos().find(x => x.id === id) : null;
-    const mesAtual = new Date().toISOString().slice(0,7);
+    const mesAtual = mesSelecionado;
 
     App.abrirModal(r ? 'Editar Aporte' : 'Novo Aporte de Recursos', `
       <form id="form-recurso">
@@ -154,5 +180,10 @@ const Recursos = (() => {
     render();
   }
 
-  return { render, abrirFormulario, excluir, setFiltro };
+  function setMes(mes) {
+    mesSelecionado = mes;
+    render();
+  }
+
+  return { render, abrirFormulario, excluir, setFiltro, setMes };
 })();
